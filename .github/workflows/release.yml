@@ -1,35 +1,3 @@
-# # .github/release.yml
-
-# name: Create Release
-
-# on:
-#   push:
-#     branches:
-#       - master
-
-#   changelog:
-#     exclude:
-#       labels:
-#         - ignore-for-release
-#       authors:
-#         - octocat
-#   categories:
-#     - title: Breaking Changes 🛠
-#       labels:
-#         - Semver-Major
-#         - breaking-change
-#     - title: Exciting New Features 🎉
-#       labels:
-#         - Semver-Minor
-#         - enhancement
-#     - title: Other Changes
-#       labels:
-#         - "*"
-
-
-
-
-
 name: Create Release
 
 on:
@@ -55,8 +23,8 @@ jobs:
             - Second Change
           draft: false
           prerelease: false
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.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 }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.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 }}
 
 # name: Create Release
 
