@@ -1,7 +1,9 @@
 name: Create and Update Release
 
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
       - master
 
