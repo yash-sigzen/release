@@ -31,15 +31,6 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Artifacts
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "release.tar.gz,foo/*.txt"
-          bodyFile: "body.md"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref }}
-          releaseID: ${{ steps.create_release.outputs.id }}
-
 
 
 
