@@ -1,4 +1,4 @@
-# name: Create and Update Release
+name: Create and Update Release
 
 on:
   push:
