@@ -22,7 +22,7 @@ jobs:
 
       - name: Set Release Name
         id: set_release_name
-        run: echo "::set-output name=release_name::Releases"
+        run: echo "::set-output name=release_name::v1.0.0"
 
       - name: Create Release
         id: create_release
