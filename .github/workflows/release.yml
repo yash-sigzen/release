@@ -10,14 +10,18 @@ on:
 jobs:
   pre-release:
     name: Release
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
 
     steps:
-      - name: "Build & test"
-        run: |
-          echo done!
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - uses: marvinpinto/action-automatic-releases@latest
+      - name: Build & test
+        run: echo done!
+
+      - name: Create Release
+        id: create_release
+        uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
@@ -28,3 +32,46 @@ jobs:
             *.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+# name: Release
+
+# on:
+#   pull_request:
+#     types:
+#       - closed
+#     branches:
+#       - master
+
+# jobs:
+#   pre-release:
+#     name: Release
+#     runs-on: "ubuntu-latest"
+
+#     steps:
+#       - name: "Build & test"
+#         run: |
+#           echo done!
+
+#       - uses: marvinpinto/action-automatic-releases@latest
+#         with:
+#           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+#           automatic_release_tag: "latest"
+#           prerelease: true
+#           title: "Development Build"
+#           files: |
+#             LICENSE.txt
+#             *.jar
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
