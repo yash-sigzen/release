@@ -21,15 +21,10 @@ jobs:
 
       - name: Create Release
         id: create_release
-        run: |
-          PREVIOUS_TAG=$(git describe --tags --abbrev=0)
-          echo "Previous Tag: $PREVIOUS_TAG"
-          echo "::set-output name=previous_tag::$PREVIOUS_TAG"
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "v1.0.${{ github.run_number }}"
-          # automatic_release_tag: "latest"
           prerelease: true
           title: "Development Build"
           files: |
@@ -38,6 +33,34 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  version-resolver:
+    name: Version Resolver
+    runs-on: ubuntu-latest
+    needs: pre-release
+    outputs:
+      result: ${{ steps.set_version.outputs.version }}
+
+    steps:
+      - name: Set version
+        id: set_version
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prLabels = await github.pulls.listLabels({ owner: context.repo.owner, repo: context.repo.repo, pull_number: context.payload.pull_request.number });
+            
+            let versionType;
+            if (prLabels.data.some(label => label.name === 'major')) {
+              versionType = 'major';
+            } else if (prLabels.data.some(label => label.name === 'minor')) {
+              versionType = 'minor';
+            } else if (prLabels.data.some(label => label.name === 'patch')) {
+              versionType = 'patch';
+            } else {
+              versionType = 'default';
+            }
+
+            core.setOutput('version', versionType);
 
 
 
@@ -50,7 +73,70 @@ jobs:
 
 
 
-# name: Release
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 2 name: Release
+
+# on:
+#   pull_request:
+#     types:
+#       - closed
+#     branches:
+#       - master
+
+# jobs:
+#   pre-release:
+#     name: Release
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Build & test
+#         run: echo done!
+
+#       - name: Create Release
+#         id: create_release
+#         uses: marvinpinto/action-automatic-releases@latest
+#         with:
+#           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+#           automatic_release_tag: "v1.0.${{ github.run_number }}"
+#           # automatic_release_tag: "latest"
+#           prerelease: true
+#           title: "Development Build"
+#           files: |
+#             LICENSE.txt
+#             *.jar
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#3 name: Release
 
 # on:
 #   pull_request:
