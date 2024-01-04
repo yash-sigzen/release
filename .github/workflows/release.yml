@@ -30,7 +30,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.set_version.outputs.version }}
+          tag_name: ${{ steps.set_release_name.outputs.release_name }}
           release_name: ${{ steps.set_release_name.outputs.release_name }}
           body: |
             Changes in this Release
@@ -38,3 +38,46 @@ jobs:
             - Second Change
           draft: false
           prerelease: false
+
+
+
+# name: Create Release
+
+# on:
+#   push:
+#     branches:
+#       - master
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: 18
+
+#       - name: Run Semantic Release
+#         run: npx semantic-release  
+
+#       - name: Set Release Name
+#         id: set_release_name
+#         run: echo "::set-output name=release_name::v1.0.0"
+
+#       - name: Create Release
+#         id: create_release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           tag_name: ${{ steps.set_version.outputs.version }}
+#           release_name: ${{ steps.set_release_name.outputs.release_name }}
+#           body: |
+#             Changes in this Release
+#             - First Change
+#             - Second Change
+#           draft: false
+#           prerelease: false
