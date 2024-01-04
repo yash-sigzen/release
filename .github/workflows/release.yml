@@ -21,6 +21,10 @@ jobs:
 
       - name: Create Release
         id: create_release
+        run: |
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0)
+          echo "Previous Tag: $PREVIOUS_TAG"
+          echo "::set-output name=previous_tag::$PREVIOUS_TAG"
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
