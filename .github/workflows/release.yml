@@ -7,6 +7,15 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latestname: Create Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -16,6 +25,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18
+
+      # Add step to verify the existence of package.json
+      - name: Verify package.json
+        run: '[ -e package.json ] || (echo "Error: package.json not found" && exit 1)'
 
       - name: Run Semantic Release
         run: npx semantic-release  
@@ -39,9 +52,6 @@ jobs:
           draft: false
           prerelease: false
 
-
-
-# name: Create Release
 
 # on:
 #   push:
