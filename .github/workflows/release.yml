@@ -39,7 +39,7 @@ jobs:
     needs: pre-release
     outputs:
       result: ${{ steps.set_version.outputs.version }}
-
+  
     steps:
       - name: Set version
         id: set_version
@@ -47,8 +47,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const prLabels = await github.pulls.listLabels({ owner: context.repo.owner, repo: context.repo.repo, pull_number: context.payload.pull_request.number });
-            
+            const { octokit } = require('@octokit/rest');
+            const prLabels = await octokit.rest.issues.listLabelsOnIssue({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            });
+  
             let versionType;
             if (prLabels.data.some(label => label.name === 'major')) {
               versionType = 'major';
@@ -59,8 +64,9 @@ jobs:
             } else {
               versionType = 'default';
             }
-
+  
             core.setOutput('version', versionType);
+
 
 
 
