@@ -29,28 +29,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update Changelog
-        run: |
-          echo "## Changelog" > CHANGELOG.md
-          echo "" >> CHANGELOG.md
-          echo "### v1.0.${{ github.run_number }}" >> CHANGELOG.md
-          echo "- Add your release notes here" >> CHANGELOG.md
-          echo "" >> CHANGELOG.md
-          cat CHANGELOG.md
-
-          # You can customize the above script to read release notes from a file, or any other source.
-
-      - name: Commit and Push Changelog
-        run: |
-          git add CHANGELOG.md
-          git commit -m "Update Changelog for v1.0.${{ github.run_number }}"
-          git push
-
-
-
-
-
-
 
 
 
