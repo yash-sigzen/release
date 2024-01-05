@@ -42,8 +42,6 @@ jobs:
 
       - name: Commit and Push Changelog
         run: |
-          git config --local user.email "yash.b@sigzen.com"
-          git config --local user.name "yash-sigzen"
           git add CHANGELOG.md
           git commit -m "Update Changelog for v1.0.${{ github.run_number }}"
           git push
