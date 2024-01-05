@@ -16,6 +16,10 @@ jobs:
       - name: "Build & test"
         run: |
           echo done!
+          
+      - name: Set version
+        id: set_version
+        run: echo "::set-output name=version::$(bash ./set_version.sh)"    
 
       - uses: marvinpinto/action-automatic-releases@latest
         with:
