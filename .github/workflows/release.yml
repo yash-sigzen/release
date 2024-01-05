@@ -29,6 +29,64 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Update Changelog
+        run: |
+          echo "## Changelog" > CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "### v1.0.${{ github.run_number }}" >> CHANGELOG.md
+          echo "- Add your release notes here" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          cat CHANGELOG.md
+
+          # You can customize the above script to read release notes from a file, or any other source.
+
+      - name: Commit and Push Changelog
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add CHANGELOG.md
+          git commit -m "Update Changelog for v1.0.${{ github.run_number }}"
+          git push
+
+
+
+
+
+
+
+
+
+# name: release
+
+# on:
+#   pull_request:
+#     types:
+#       - closed
+#     branches:
+#       - master
+
+# jobs:
+#   pre-release:
+#     name: Release
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: "Build & test"
+#         run: |
+#           echo done!
+
+#       - uses: marvinpinto/action-automatic-releases@latest
+#         with:
+#           repo_token: "${{ secrets.GITHUB_TOKEN }}"
+#           automatic_release_tag: "v1.0.${{ github.run_number }}"
+#           prerelease: true
+#           title: "Development Build"
+#           files: |
+#             LICENSE.txt
+#             *.jar
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 # name: Release
 
