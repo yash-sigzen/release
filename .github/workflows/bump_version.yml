@@ -14,7 +14,18 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v3
+    - uses: marvinpinto/action-automatic-releases@latest
       with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "v1.0.${{ github.run_number }}"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          LICENSE.txt
+          *.jar
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
         ref: ${{ github.event.pull_request.merge_commit_sha }}
         fetch-depth: '0'
 
