@@ -25,7 +25,7 @@ jobs:
         run: pip install bump2version
 
       - name: Run bump2version
-        run: bump2version patch  # Adjust version bump as needed
+        run: bump2version patch --new-version 1.0.0 # Adjust version bump as needed
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
