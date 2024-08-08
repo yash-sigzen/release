@@ -39,8 +39,8 @@ jobs:
           version=${{ steps.get_version.outputs.VERSION_BUMP }}
           previous_tag=${{ steps.get_previous_tag.outputs.previous_tag }}
           tag="$version"
-          git config --local user.email "yash.b@sigzen.com"
-          git config --local user.name "yash-sigzen"
+          git config --local user.email "jaydeep@sigzen.com"
+          git config --local user.name "jaydeep-sigzen"
 
           git tag $tag
           git push origin $tag
