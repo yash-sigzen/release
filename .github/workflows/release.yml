@@ -46,7 +46,7 @@ jobs:
           git push origin $tag
           
           # Replace with your actual changelog URL
-          changelog_url="https://github.com/Sigzen-Team/release/compare/$previous_tag...$version"
+          changelog_url="https://github.com/yash-sigzen/release/compare/$previous_tag...$version"
           echo "changelog_url" = $previous_tag >> $GITHUB_OUTPUT
 
           body="Changelog: [$changelog_url]($changelog_url)"
